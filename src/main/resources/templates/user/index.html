@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+<p th:if="${#authentication.principal == null}">
+    Xin chào, khách!
+</p>
+<h1>Welcome!</h1>
+<p th:text="'Xin chào, ' + ${name} + '!'"></p>
+<a th:href="@{/logout}">Đăng xuất</a>
+</body>
+</html>
