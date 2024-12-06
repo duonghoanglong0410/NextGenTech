@@ -34,6 +34,9 @@
             axilInit.sideOffcanvasToggle('.department-side-menu', '.department-nav-menu');
             axilInit.sideOffcanvasToggle('.filter-toggle', '.axil-shop-sidebar');
             axilInit.sideOffcanvasToggle('.axil-search', '#header-search-modal');
+            axilInit.sideOffcanvasToggle('.axil-btn', '#categories-post-add');
+            axilInit.sideOffcanvasToggle('.view-edit-btn', '#categories-post-edit');
+            axilInit.sideOffcanvasToggle('.view-detail-btn', '#categories-post-detail');
             axilInit.sideOffcanvasToggle('.popup-close, .closeMask', "#offer-popup-modal");
             axilInit.stickyHeaderMenu();
             axilInit.salActivation();

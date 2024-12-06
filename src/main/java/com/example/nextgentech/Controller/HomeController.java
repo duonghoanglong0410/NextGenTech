@@ -25,4 +25,8 @@ public class HomeController {
     public String getLoginForm(Model model) {
         return "user/login";
     }
+    @GetMapping("/my-account")
+    public String getMyAccount(Model model) {
+        return "user/my-account";
+    }
 }
