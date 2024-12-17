@@ -1,0 +1,21 @@
+<h1>Kết quả tìm kiếm cho: <span th:text="${query}"></span></h1>
+
+<!-- Hiển thị kết quả tìm kiếm -->
+<div th:if="${searchResults != null and not searchResults.isEmpty()}">
+    <ul>
+        <li th:each="post : ${searchResults}">
+            <a th:href="@{'/' + ${post.slug}}" th:text="${post.title}"></a>
+        </li>
+    </ul>
+</div>
+
+<!-- Thông báo nếu không có kết quả -->
+<p th:if="${searchResults == null or searchResults.isEmpty()}">Không tìm thấy kết quả nào.</p>
+
+<!-- Hiển thị lịch sử tìm kiếm gần đây -->
+<h2>Lịch sử tìm kiếm gần đây</h2>
+<div th:if="${recentSearches != null and not recentSearches.isEmpty()}">
+    <ul>
+        <li th:each="log : ${recentSearches}" th:text="${log.searchQuery}"></li>
+    </ul>
+</div>

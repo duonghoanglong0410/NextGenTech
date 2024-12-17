@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Next Gen Tech</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" th:href="@{/css/vendor/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/font-awesome.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/flaticon/flaticon.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/slick.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/slick-theme.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/jquery-ui.min.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/sal.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/magnific-popup.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/base.css}">
+  <link rel="stylesheet" th:href="@{/css/style.min.css}">
+</head>
+<style>
+
+</style>
+<body>
+
+<a href="#top" class="back-to-top" id="backto-top"><i class="fal fa-arrow-up"></i></a>
+<!-- Start Header -->
+<header class="header axil-header header-style-5">
+  <!-- Start Mainmenu Area  -->
+  <div id="axil-sticky-placeholder"></div>
+  <div class="axil-mainmenu">
+    <div class="container">
+      <div class="header-navbar">
+        <div class="header-brand">
+          <a href="#" class="logo logo-dark">
+            <img th:src="@{images/logo/logo-light.png}" alt="Site Logo">
+          </a>
+          <a href="#" class="logo logo-light">
+            <img th:src="@{images/logo/logo-light.png}" alt="Site Logo">
+          </a>
+        </div>
+        <div class="header-main-nav">
+          <!-- Start Mainmanu Nav -->
+          <nav class="mainmenu-nav">
+            <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
+            <div class="mobile-nav-brand">
+              <a href="index.html" class="logo">
+                <img src="assets/images/logo/logo.png" alt="Site Logo">
+              </a>
+            </div>
+            <ul class="mainmenu">
+              <li class="menu-item-has-children">
+                <a href="#">Home</a>
+              </li>
+              <li class="menu-item-has-children">
+                <a href="#">Pages</a>
+              </li>
+              <li><a href="#">About</a></li>
+              <li class="menu-item-has-children">
+                <a href="#">Blog</a>
+              </li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </nav>
+          <!-- End Mainmanu Nav -->
+        </div>
+        <div class="header-action">
+          <ul class="action-list">
+            <li class="axil-search d-xl-block d-none">
+              <input type="search" class="placeholder product-search-input" name="search2" id="search2" value="" maxlength="128" placeholder="What are you looking for?" autocomplete="off">
+              <button type="submit" class="icon wooc-btn-search">
+                <i class="flaticon-magnifying-glass"></i>
+              </button>
+            </li>
+            <li class="axil-search d-xl-none d-block">
+              <a href="javascript:void(0)" class="header-search-icon" title="Search">
+                <i class="flaticon-magnifying-glass"></i>
+              </a>
+            </li>
+            <li class="wishlist">
+              <a href="wishlist.html">
+                <i class="flaticon-heart"></i>
+              </a>
+            </li>
+            <li class="shopping-cart">
+              <a href="#" class="cart-dropdown-btn">
+                <span class="cart-count">3</span>
+                <i class="flaticon-shopping-cart"></i>
+              </a>
+            </li>
+            <li class="my-account">
+              <a href="javascript:void(0)">
+                <i class="flaticon-person"></i>
+              </a>
+              <div class="my-account-dropdown">
+                <span class="title">QUICKLINKS</span>
+                <ul>
+                  <li>
+                    <a href="my-account.html">My Account</a>
+                  </li>
+                  <li>
+                    <a href="#">Initiate return</a>
+                  </li>
+                  <li>
+                    <a href="#">Support</a>
+                  </li>
+                  <li>
+                    <a href="#">Language</a>
+                  </li>
+                </ul>
+                <a href="sign-in.html" class="axil-btn btn-bg-primary">Login</a>
+                <div class="reg-footer text-center">No account yet? <a href="sign-up.html" class="btn-link">REGISTER HERE.</a></div>
+              </div>
+            </li>
+            <li class="axil-mobile-toggle">
+              <button class="menu-btn mobile-nav-toggler">
+                <i class="flaticon-menu-2"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Mainmenu Area -->
+</header>
+<!-- End Header -->
+
+<main class="main-wrapper">
+  <!-- Start Breadcrumb Area  -->
+  <div class="axil-breadcrumb-area">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="inner">
+            <ul class="axil-breadcrumb">
+              <li class="axil-breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="separator"></li>
+              <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
+            </ul>
+            <h1 class="title">Explore All Products</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Breadcrumb Area  -->
+
+  <!-- Start My Account Area  -->
+  <div class="axil-dashboard-area axil-section-gap">
+    <div class="container">
+      <div class="axil-dashboard-warp">
+        <div class="axil-dashboard-author">
+          <div class="media">
+            <div class="thumbnail">
+              <img th:src="@{/images/product/author1.png}" alt="Hello Annie">
+            </div>
+            <div class="media-body">
+              <h5 class="title mb-0">Hello Annie</h5>
+              <span class="joining-date">eTrade Member Since Sep 2020</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-3 col-md-4">
+            <aside class="axil-dashboard-aside">
+              <nav class="axil-dashboard-nav">
+                <div class="nav nav-tabs" role="tablist">
+                  <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-dashboard" role="tab" aria-selected="true"><i class="fas fa-th-large"></i>Dashboard</a>
+                  <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-orders" role="tab" aria-selected="false"><i class="fas fa-shopping-basket"></i>Categories</a>
+                  <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-downloads" role="tab" aria-selected="false"><i class="fas fa-file-download"></i>Downloads</a>
+                  <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-address" role="tab" aria-selected="false"><i class="fas fa-home"></i>Addresses</a>
+                  <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-account" role="tab" aria-selected="false"><i class="fas fa-user"></i>Account Details</a>
+                  <a class="nav-item nav-link" href="sign-in.html"><i class="fal fa-sign-out"></i>Logout</a>
+                </div>
+              </nav>
+            </aside>
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel">
+                <div class="axil-dashboard-overview">
+                  <div class="welcome-text">Hello Annie (not <span>Annie?</span> <a href="sign-in.html">Log Out</a>)</div>
+                  <p>From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</p>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-orders" role="tabpanel">
+                <div class="axil-dashboard-order">
+                  <div class="table-responsive">
+                    <a href="javascript:void(0)" class="axil-btn view-btn">Thêm danh mục</a>
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Mô tả</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr th:each="categoryPostList : ${categoryPostList}">
+                        <td th:text="${categoryPostList.name}"></td>
+                        <td th:text="${categoryPostList.description}"></td>
+                        <td>
+                          <a href="#" class="view-detail-btn" title="Chi tiết">
+                            <i class="fas fa-info-circle"></i> <!-- Icon chi tiết -->
+                          </a>
+                          <a th:href="@{/categories-post/edit/{id}}" class="view-edit-btn" title="Sửa">
+                            <i class="fas fa-edit"></i> <!-- Icon sửa -->
+                          </a>
+                          <a th:href="@{/categories-post/del/{id}(id=${categoryPostList.id})}" class="" title="Xoá">
+                            <i class="fas fa-trash-alt"></i> <!-- Icon xoá -->
+                          </a>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-downloads" role="tabpanel">
+                <div class="axil-dashboard-order">
+                  <p>You don't have any download</p>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-address" role="tabpanel">
+                <div class="axil-dashboard-address">
+                  <p class="notice-text">The following addresses will be used on the checkout page by default.</p>
+                  <div class="row row--30">
+                    <div class="col-lg-6">
+                      <div class="address-info mb--40">
+                        <div class="addrss-header d-flex align-items-center justify-content-between">
+                          <h4 class="title mb-0">Shipping Address</h4>
+                          <a href="#" class="address-edit"><i class="far fa-edit"></i></a>
+                        </div>
+                        <ul class="address-details">
+                          <li>Name: Annie Mario</li>
+                          <li>Email: annie@example.com</li>
+                          <li>Phone: 1234 567890</li>
+                          <li class="mt--30">7398 Smoke Ranch Road <br>
+                            Las Vegas, Nevada 89128</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="address-info">
+                        <div class="addrss-header d-flex align-items-center justify-content-between">
+                          <h4 class="title mb-0">Billing Address</h4>
+                          <a href="#" class="address-edit"><i class="far fa-edit"></i></a>
+                        </div>
+                        <ul class="address-details">
+                          <li>Name: Annie Mario</li>
+                          <li>Email: annie@example.com</li>
+                          <li>Phone: 1234 567890</li>
+                          <li class="mt--30">7398 Smoke Ranch Road <br>
+                            Las Vegas, Nevada 89128</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-account" role="tabpanel">
+                <div class="col-lg-9">
+                  <div class="axil-dashboard-account">
+                    <form class="account-details-form">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" value="Annie">
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" value="Mario">
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-group mb--40">
+                            <label>Country/ Region</label>
+                            <select class="select2">
+                              <option value="1">United Kindom (UK)</option>
+                              <option value="1">United States (USA)</option>
+                              <option value="1">United Arab Emirates (UAE)</option>
+                              <option value="1">Australia</option>
+                            </select>
+                            <p class="b3 mt--10">This will be how your name will be displayed in the account section and in reviews</p>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <h5 class="title">Password Change</h5>
+                          <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" value="123456789101112131415">
+                          </div>
+                          <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" class="form-control">
+                          </div>
+                          <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" class="form-control">
+                          </div>
+                          <div class="form-group mb--0">
+                            <input type="submit" class="axil-btn" value="Save Changes">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End My Account Area  -->
+
+</main>
+
+<!-- Start Footer Area  -->
+<footer class="axil-footer-area footer-style-2">
+  <!-- Start Footer Top Area  -->
+  <div class="footer-top separator-top">
+    <div class="container">
+      <div class="row">
+        <!-- Start Single Widget  -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="axil-footer-widget">
+            <h5 class="widget-title">Support</h5>
+            <!-- <div class="logo mb--30">
+            <a href="index.html">
+                <img class="light-logo" src="assets/images/logo/logo.png" alt="Logo Images">
+            </a>
+        </div> -->
+            <div class="inner">
+              <p>685 Market Street, <br>
+                Las Vegas, LA 95820, <br>
+                United States.
+              </p>
+              <ul class="support-list-item">
+                <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i> example@domain.com</a></li>
+                <li><a href="tel:(+01)850-315-5862"><i class="fal fa-phone-alt"></i> (+01) 850-315-5862</a></li>
+                <!-- <li><i class="fal fa-map-marker-alt"></i> 685 Market Street,  <br> Las Vegas, LA 95820, <br> United States.</li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Widget  -->
+        <!-- Start Single Widget  -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="axil-footer-widget">
+            <h5 class="widget-title">Account</h5>
+            <div class="inner">
+              <ul>
+                <li><a href="my-account.html">My Account</a></li>
+                <li><a href="sign-up.html">Login / Register</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="shop.html">Shop</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Widget  -->
+        <!-- Start Single Widget  -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="axil-footer-widget">
+            <h5 class="widget-title">Quick Link</h5>
+            <div class="inner">
+              <ul>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html">Terms Of Use</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Widget  -->
+        <!-- Start Single Widget  -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="axil-footer-widget">
+            <h5 class="widget-title">Download App</h5>
+            <div class="inner">
+              <span>Save $3 With App & New User only</span>
+              <div class="download-btn-group">
+                <div class="qr-code">
+                  <img src="assets/images/others/qr.png" alt="Axilthemes">
+                </div>
+                <div class="app-link">
+                  <a href="#">
+                    <img src="assets/images/others/app-store.png" alt="App Store">
+                  </a>
+                  <a href="#">
+                    <img src="assets/images/others/play-store.png" alt="Play Store">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Widget  -->
+      </div>
+    </div>
+  </div>
+  <!-- End Footer Top Area  -->
+  <!-- Start Copyright Area  -->
+  <div class="copyright-area copyright-default separator-top">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-xl-4">
+          <div class="social-share">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-12">
+          <div class="copyright-left d-flex flex-wrap justify-content-center">
+            <ul class="quick-link">
+              <li>© 2023. All rights reserved by <a target="_blank" href="https://axilthemes.com/">Axilthemes</a>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-12">
+          <div class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">
+            <span class="card-text">Accept For</span>
+            <ul class="payment-icons-bottom quick-link">
+              <li><img src="assets/images/icons/cart/cart-1.png" alt="paypal cart"></li>
+              <li><img src="assets/images/icons/cart/cart-2.png" alt="paypal cart"></li>
+              <li><img src="assets/images/icons/cart/cart-5.png" alt="paypal cart"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Copyright Area  -->
+</footer>
+<!-- End Footer Area  -->
+
+
+<!-- Modal Add Categories -->
+<div class="header-search-modal" id="categories-post-add">
+  <button class="card-close sidebar-close"><i class="fas fa-times"></i></button>
+  <div class="header-search-wrap">
+    <div class="card-header">
+      <h4>Thêm danh mục</h4>
+      <form th:action="@{/categories-post/add}" method="POST">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Tên danh mục</label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="Nhập tên danh mục">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Mô tả</label>
+              <input type="text" name="description" id="description" class="form-control" placeholder="Nhập mô tả danh mục">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-cols-lg-6">
+              <button type="submit" class="form-control">Thêm danh mục</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Header Search Modal End -->
+
+
+<!-- JS
+============================================ -->
+<!-- Modernizer JS -->
+<script th:src="@{/js/vendor/modernizr.min.js}"></script>
+<!-- jQuery JS -->
+<script th:src="@{/js/vendor/jquery.js}"></script>
+<!-- Bootstrap JS -->
+<script th:src="@{/js/vendor/popper.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+<script th:src="@{/js/vendor/slick.min.js}"></script>
+<script th:src="@{/js/vendor/js.cookie.js}"></script>
+<!-- <script th:src="@{/js/vendor/jquery.style.switcher.js}"></script> -->
+<script th:src="@{/js/vendor/jquery-ui.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.ui.touch-punch.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/vendor/sal.js}"></script>
+<script th:src="@{/js/vendor/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/vendor/imagesloaded.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/counterup.js}"></script>
+<script th:src="@{/js/vendor/waypoints.min.js}"></script>
+
+<!-- Main JS -->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

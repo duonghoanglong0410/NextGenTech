@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chỉnh sửa bài viết</title>
+</head>
+<body>
+<h1>Chỉnh sửa bài viết</h1>
+
+<form th:action="@{/post/edit/{id}(id=${post.id})}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:value="${post.id}" name="id"/>
+
+    <label for="title">Tiêu đề:</label>
+    <input type="text" id="title" name="title" th:value="${post.title}" required/><br/>
+
+    <label for="content">Nội dung:</label>
+    <textarea id="content" name="content" rows="5" required th:text="${post.content}"></textarea><br/>
+
+    <label for="category">Danh mục:</label>
+    <select id="category" name="category.id" required>
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}"
+                th:selected="${post.category?.id == category.id}">
+        </option>
+
+    </select><br/>
+
+    <label for="imageFile">Hình ảnh:</label>
+    <input type="file" id="imageFile" name="imageFile"/><br/>
+
+    <button type="submit">Cập nhật</button>
+</form>
+
+<a href="/post/my-posts">Quay lại danh sách bài viết</a>
+</body>
+</html>

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Next Gen Tech</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" th:href="@{/css/vendor/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/font-awesome.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/flaticon/flaticon.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/slick.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/slick-theme.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/jquery-ui.min.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/sal.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/magnific-popup.css}">
+  <link rel="stylesheet" th:href="@{/css/vendor/base.css}">
+  <link rel="stylesheet" th:href="@{/css/style.min.css}">
+</head>
+<style>
+  /* Loader Wrapper - Nền trắng toàn màn hình */
+  .loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* Nền trắng */
+    display: flex;
+    justify-content: center; /* Căn giữa ngang */
+    align-items: center; /* Căn giữa dọc */
+    z-index: 9999; /* Đảm bảo loader ở trên cùng */
+  }
+
+  /* Loader Styles */
+  .loader {
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+  }
+
+  .loader::before,
+  .loader::after {
+    content: "";
+    grid-area: 1/1;
+    --c: no-repeat radial-gradient(farthest-side, #25b09b 92%, #0000);
+    background:
+            var(--c) 50% 0,
+            var(--c) 50% 100%,
+            var(--c) 100% 50%,
+            var(--c) 0 50%;
+    background-size: 12px 12px;
+    animation: l12 1s infinite;
+  }
+
+  .loader::before {
+    margin: 4px;
+    filter: hue-rotate(45deg);
+    background-size: 8px 8px;
+    animation-timing-function: linear;
+  }
+
+  @keyframes l12 {
+    100% {
+      transform: rotate(0.5turn);
+    }
+  }
+
+
+  /* Custom Button Styles */
+  .axil-btn {
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 10px; /* Khoảng cách trong nút */
+    color: #fff; /* Màu chữ trắng */
+    background: linear-gradient(135deg, #4e73df, #224abe); /* Gradient màu xanh */
+    border: none;
+    border-radius: 5px; /* Bo tròn góc */
+    text-decoration: none; /* Xóa gạch chân */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    transition: all 0.3s ease; /* Hiệu ứng hover mượt mà */
+  }
+
+  .axil-btn:hover {
+    background: linear-gradient(135deg, #224abe, #1d3c78); /* Thay đổi màu khi hover */
+    transform: translateY(-3px); /* Đẩy nút lên nhẹ */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng đậm hơn */
+  }
+
+  .view-btn {
+    background: #ff6b6b; /* Màu đỏ đẹp mắt */
+    color: #fff;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .view-btn:hover {
+    background: #d43f3f; /* Màu đỏ đậm hơn khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ */
+  }
+
+
+  /* Upload Demo */
+  .uploader {
+    display: block;
+    clear: both;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .uploader label {
+    float: left;
+    clear: both;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    background: #fff;
+    border-radius: 7px;
+    border: 3px solid #eee;
+    transition: all .2s ease;
+    user-select: none;
+  }
+
+  .uploader label:hover {
+    border-color: #454cad;
+  }
+
+  .uploader label.hover {
+    border: 3px solid #454cad;
+    box-shadow: inset 0 0 0 6px #eee;
+  }
+
+  .uploader label.hover #start i.fa {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+
+  .uploader #start {
+    float: left;
+    clear: both;
+    width: 100%;
+  }
+
+  .uploader #start.hidden {
+    display: none;
+  }
+
+  .uploader #start i.fa {
+    font-size: 50px;
+    margin-bottom: 1rem;
+    transition: all .2s ease-in-out;
+  }
+
+  .uploader #response {
+    float: left;
+    clear: both;
+    width: 100%;
+  }
+
+  .uploader #response.hidden {
+    display: none;
+  }
+
+  .uploader #response #messages {
+    margin-bottom: .5rem;
+  }
+
+  .uploader #file-image {
+    display: inline;
+    margin: 0 auto .5rem auto;
+    width: auto;
+    height: auto;
+    max-width: 180px;
+  }
+
+  .uploader #file-image.hidden {
+    display: none;
+  }
+
+  .uploader #notimage {
+    display: block;
+    float: left;
+    clear: both;
+    width: 100%;
+  }
+
+  .uploader #notimage.hidden {
+    display: none;
+  }
+
+  /* Progress Bar */
+  .uploader progress,
+  .uploader .progress {
+    display: inline;
+    clear: both;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 180px;
+    height: 8px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #eee;
+    overflow: hidden;
+  }
+
+  .uploader .progress[value]::-webkit-progress-bar {
+    border-radius: 4px;
+    background-color: #eee;
+  }
+
+  .uploader .progress[value]::-webkit-progress-value {
+    background: linear-gradient(to right, #3b408f 0%, #454cad 50%);
+    border-radius: 4px;
+  }
+
+  .uploader .progress[value]::-moz-progress-bar {
+    background: linear-gradient(to right, #3b408f 0%, #454cad 50%);
+    border-radius: 4px;
+  }
+
+  .uploader input[type="file"] {
+    display: none;
+  }
+
+  .uploader div {
+    margin: 0 0 .5rem 0;
+    color: #5f6982;
+  }
+
+  .uploader .btn {
+    display: inline-block;
+    margin: .5rem .5rem 1rem .5rem;
+    clear: both;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: initial;
+    border: none;
+    border-radius: .2rem;
+    outline: none;
+    padding: 0 1rem;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+    background: #454cad;
+    border-color: #454cad;
+    cursor: pointer;
+  }
+
+</style>
+<body>
+<!-- Loader -->
+<!-- Loader -->
+<div class="loader-wrapper" id="loader-wrapper">
+  <div class="loader"></div>
+</div>
+<div id="contents" style="display: none">
+<!-- Thêm Toast Notification -->
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <!-- Thông báo thành công -->
+    <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true"
+         th:if="${successMessage}" id="successToast">
+      <div class="d-flex">
+        <div class="toast-body" th:text="${successMessage}"></div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+
+    <!-- Thông báo lỗi -->
+    <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true"
+         th:if="${errorMessage}" id="errorToast">
+      <div class="d-flex">
+        <div class="toast-body" th:text="${errorMessage}"></div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<a href="#top" class="back-to-top" id="backto-top"><i class="fal fa-arrow-up"></i></a>
+
+<div th:replace="/user/fragments/header :: header"></div>
+
+<main class="main-wrapper">
+  <!-- Start Breadcrumb Area  -->
+  <div class="axil-breadcrumb-area">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="inner">
+            <ul class="axil-breadcrumb">
+              <li class="axil-breadcrumb-item"><a href="/">Home</a></li>
+              <li class="separator"></li>
+              <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
+            </ul>
+            <h1 class="title">NextGen Tech</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Breadcrumb Area  -->
+
+  <!-- Start My Account Area  -->
+  <div class="axil-dashboard-area axil-section-gap">
+    <div class="container">
+      <div class="axil-dashboard-warp">
+        <div class="axil-dashboard-author">
+          <div class="media">
+            <div class="thumbnail">
+              <img th:src="${user.picture}" th:alt="${user.name}">
+            </div>
+            <div class="media-body">
+              <h5 class="title mb-0" th:text="'Hello, ' + ${user.name}"></h5>
+              <span class="joining-date" th:text="'Bạn đã là thành viên của NextGen Tech từ 2024'"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-3 col-md-4">
+            <aside class="axil-dashboard-aside">
+              <nav class="axil-dashboard-nav">
+                <div class="nav nav-tabs" role="tablist">
+                  <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-dashboard" role="tab" aria-selected="true"><i class="fas fa-th-large"></i>Dashboard</a>
+                  <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-orders" role="tab" aria-selected="false"><i class="fas fa-shopping-basket"></i>Quản lý bài viết</a>
+                  <a class="nav-item nav-link" href="#"><i class="fal fa-sign-out"></i>Logout</a>
+                </div>
+              </nav>
+            </aside>
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel">
+                <div class="axil-dashboard-overview">
+                  <div class="welcome-text" th:text="'Hello, ' + ${user.name}"><a href="#">Log Out</a>)</div>
+                  <p>Từ tài khoản của bạn, bạn có thể xem được những bài viết bạn đã đăng.</p>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-orders" role="tabpanel">
+                <div class="axil-dashboard-order">
+                  <div class="table-responsive">
+                    <a href="javascript:void(0)" class="axil-btn view-btn">Thêm bài viết</a>
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th scope="col">Tiêu đề</th>
+                        <th scope="col">Danh mục</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr th:each="post : ${posts}">
+                        <td th:text="${post.title}"></td>
+                        <td th:text="${post.category.name}"></td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <!-- Nút Sửa -->
+                            <a th:href="@{/post/edit/{id}(id=${post.id})}" class="btn btn-sm btn-primary" title="Chỉnh sửa">
+                              <i class="fas fa-edit"></i>
+                            </a>
+
+                            <!-- Nút Xóa -->
+                            <form th:action="@{/post/delete/{id}(id=${post.id})}" method="POST" style="display: inline;">
+                              <button type="submit" class="btn btn-sm btn-danger" title="Xóa"
+                                      onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </form>
+                          </div>
+
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End My Account Area  -->
+
+</main>
+
+<div th:replace="/user/fragments/footer :: footer"></div>
+
+
+
+<!-- Modal Add Post -->
+<div class="header-search-modal" id="categories-post-add">
+  <button class="card-close sidebar-close"><i class="fas fa-times"></i></button>
+  <div class="header-search-wrap">
+    <div class="card-header">
+      <h4>Thêm bài viết</h4>
+      <form th:action="@{/post/create}" method="POST" enctype="multipart/form-data">
+        <div class="row">
+          <!-- Tiêu đề bài viết -->
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Tiêu đề bài viết</label>
+              <input type="text" name="title" id="title" class="form-control" placeholder="Nhập tiêu đề bài viết">
+            </div>
+          </div>
+
+          <!-- Danh mục bài viết nằm ngay dưới tiêu đề -->
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="category">Danh mục:</label>
+              <select id="category" name="category" class="form-control" required>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+              </select>
+            </div>
+          </div>
+            <div class="col-lg-12">
+              <!-- Upload  -->
+              <label>Hình ảnh</label>
+              <div id="file-upload-form" class="uploader">
+                <input id="imageFile" type="file" name="imageFile" accept="image/*" />
+                <label for="imageFile" id="file-drag">
+                  <img id="file-image" src="#" alt="Preview" class="hidden">
+                  <div id="start">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <div>Chọn file hoặc kéo thả vào đây</div>
+                    <div id="notimage" class="hidden">Please select an image</div>
+                    <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                  </div>
+                  <div id="response" class="hidden">
+                    <div id="messages"></div>
+                    <progress class="progress" id="file-progress" value="0">
+                      <span>0</span>%
+                    </progress>
+                  </div>
+                </label>
+              </div>
+            </div>
+          <!-- Nội dung bài viết -->
+          <br>
+          <div class="col-lg-12" style="margin-top: 50px">
+            <div class="form-group">
+              <label>Nội dung bài viết</label>
+              <textarea type="text" name="content" id="content" class="form-control" placeholder="Nhập nội dung bài viết"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-cols-lg-6">
+            <button type="submit" class="form-control">Thêm bài viết</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Modal Edit-->
+<div class="modal fade" id="categories-post-edit" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa bài viết</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <input type="hidden" id="postId" />
+          <div class="mb-3">
+            <label for="title">Tiêu đề:</label>
+            <input type="text" id="title" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="content">Nội dung:</label>
+            <textarea id="content"></textarea>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.tiny.cloud/1/ur61592cgo9fnonucnrh2qcf4by9u46tayl9y7hryf2rwgcp/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+
+<script>
+  tinymce.init({
+    selector: 'textarea',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Dec 5, 2024:
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+      // Early access to document converters
+      'importword', 'exportword', 'exportpdf'
+    ],
+    setup: function (editor) {
+      editor.on('change', function () {
+        editor.save(); // Đồng bộ nội dung vào textarea
+      });
+    },
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+    exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
+    exportword_converter_options: { 'document': { 'size': 'Letter' } },
+    importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
+  });
+
+  // File Upload
+  //
+  function ekUpload(){
+    function Init() {
+
+      console.log("Upload Initialised");
+
+      var fileSelect    = document.getElementById('imageFile'),
+              fileDrag      = document.getElementById('file-drag'),
+              submitButton  = document.getElementById('submit-button');
+
+      fileSelect.addEventListener('change', fileSelectHandler, false);
+
+      // Is XHR2 available?
+      var xhr = new XMLHttpRequest();
+      if (xhr.upload) {
+        // File Drop
+        fileDrag.addEventListener('dragover', fileDragHover, false);
+        fileDrag.addEventListener('dragleave', fileDragHover, false);
+        fileDrag.addEventListener('drop', fileSelectHandler, false);
+      }
+    }
+
+    function fileDragHover(e) {
+      var fileDrag = document.getElementById('file-drag');
+
+      e.stopPropagation();
+      e.preventDefault();
+
+      fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+    }
+
+    function fileSelectHandler(e) {
+      // Fetch FileList object
+      var files = e.target.files || e.dataTransfer.files;
+
+      // Cancel event and hover styling
+      fileDragHover(e);
+
+      // Process all File objects
+      for (var i = 0, f; f = files[i]; i++) {
+        parseFile(f);
+        uploadFile(f);
+      }
+    }
+
+    // Output
+    function output(msg) {
+      // Response
+      var m = document.getElementById('messages');
+      m.innerHTML = msg;
+    }
+
+    function parseFile(file) {
+
+      console.log(file.name);
+      output(
+              '<strong>' + encodeURI(file.name) + '</strong>'
+      );
+
+      // var fileType = file.type;
+      // console.log(fileType);
+      var imageName = file.name;
+
+      var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+      if (isGood) {
+        document.getElementById('start').classList.add("hidden");
+        document.getElementById('response').classList.remove("hidden");
+        document.getElementById('notimage').classList.add("hidden");
+        // Thumbnail Preview
+        document.getElementById('file-image').classList.remove("hidden");
+        document.getElementById('file-image').src = URL.createObjectURL(file);
+      }
+      else {
+        document.getElementById('file-image').classList.add("hidden");
+        document.getElementById('notimage').classList.remove("hidden");
+        document.getElementById('start').classList.remove("hidden");
+        document.getElementById('response').classList.add("hidden");
+        document.getElementById("file-upload-form").reset();
+      }
+    }
+
+    function setProgressMaxValue(e) {
+      var pBar = document.getElementById('file-progress');
+
+      if (e.lengthComputable) {
+        pBar.max = e.total;
+      }
+    }
+
+    function updateFileProgress(e) {
+      var pBar = document.getElementById('file-progress');
+
+      if (e.lengthComputable) {
+        pBar.value = e.loaded;
+      }
+    }
+
+    function uploadFile(file) {
+
+      var xhr = new XMLHttpRequest(),
+              fileInput = document.getElementById('class-roster-file'),
+              pBar = document.getElementById('file-progress'),
+              fileSizeLimit = 1024; // In MB
+      if (xhr.upload) {
+        // Check if file is less than x MB
+        if (file.size <= fileSizeLimit * 1024 * 1024) {
+          // Progress bar
+          pBar.style.display = 'inline';
+          xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
+          xhr.upload.addEventListener('progress', updateFileProgress, false);
+
+          // File received / failed
+          xhr.onreadystatechange = function(e) {
+            if (xhr.readyState == 4) {
+              // Everything is good!
+
+              // progress.className = (xhr.status == 200 ? "success" : "failure");
+              // document.location.reload(true);
+            }
+          };
+
+          // Start upload
+          xhr.open('POST', document.getElementById('file-upload-form').action, true);
+          xhr.setRequestHeader('X-File-Name', file.name);
+          xhr.setRequestHeader('X-File-Size', file.size);
+          xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+          xhr.send(file);
+        } else {
+          output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+        }
+      }
+    }
+
+    // Check for the various File API support.
+    if (window.File && window.FileList && window.FileReader) {
+      Init();
+    } else {
+      document.getElementById('file-drag').style.display = 'none';
+    }
+  }
+  ekUpload();
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Đảm bảo modal tồn tại
+    const modalElement = document.getElementById("categories-post-edit");
+    if (!modalElement) {
+      console.error("Không tìm thấy modal. Kiểm tra ID 'categories-post-edit'");
+      return;
+    }
+
+    // Xử lý khi nhấn nút sửa
+    document.querySelectorAll(".view-edit-btn").forEach(button => {
+      button.addEventListener("click", async function () {
+        const postId = this.getAttribute("data-id");
+
+        try {
+          const response = await fetch(`/post/edit/${postId}`);
+          if (!response.ok) throw new Error("Không tải được dữ liệu");
+
+          const data = await response.json();
+          populateEditModal(data);
+
+          const modal = new bootstrap.Modal(modalElement);
+          modal.show();
+        } catch (error) {
+          console.error("Lỗi:", error.message);
+        }
+      });
+    });
+
+    function populateEditModal(data) {
+      console.log("Dữ liệu nhận được từ server:", data);
+
+      const postIdInput = document.querySelector("#categories-post-edit #postId");
+      const titleInput = document.querySelector("#categories-post-edit #title");
+
+      if (postIdInput) postIdInput.value = data.id || "";
+      if (titleInput) titleInput.value = data.title || "";
+
+      // Gán nội dung vào TinyMCE
+      if (tinymce.get("content")) {
+        tinymce.get("content").setContent(data.content || ""); // Sử dụng setContent
+        console.log("Nội dung đã gán vào TinyMCE:", data.content);
+      } else {
+        console.error("TinyMCE chưa được khởi tạo.");
+      }
+    }
+
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    tinymce.init({
+      selector: "#content",
+      plugins: "autolink lists link image charmap preview",
+      toolbar: "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist",
+      setup: function (editor) {
+        console.log("TinyMCE đã được khởi tạo thành công.");
+      }
+    });
+  });
+
+  <!-- Script kích hoạt Toast -->
+
+  window.addEventListener('DOMContentLoaded', () => {
+    var successToast = document.getElementById('successToast');
+    var errorToast = document.getElementById('errorToast');
+
+    if (successToast) {
+      var toast = new bootstrap.Toast(successToast);
+      toast.show();
+    }
+    if (errorToast) {
+      var toast = new bootstrap.Toast(errorToast);
+      toast.show();
+    }
+  });
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const loaderWrapper = document.getElementById("loader-wrapper");
+    const content = document.getElementById("contents");
+
+    setTimeout(() => {
+      loaderWrapper.style.display = "none"; // Ẩn loader
+      content.style.display = "block"; // Hiện nội dung chính
+    }, 1000); // Thời gian chờ 1.5 giây (có thể điều chỉnh)
+  });
+</script>
+
+
+<!-- JS
+============================================ -->
+<!-- Modernizer JS -->
+<script th:src="@{/js/vendor/modernizr.min.js}"></script>
+<!-- jQuery JS -->
+<script th:src="@{/js/vendor/jquery.js}"></script>
+<!-- Bootstrap JS -->
+<script th:src="@{/js/vendor/popper.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+<script th:src="@{/js/vendor/slick.min.js}"></script>
+<script th:src="@{/js/vendor/js.cookie.js}"></script>
+<!-- <script th:src="@{/js/vendor/jquery.style.switcher.js}"></script> -->
+<script th:src="@{/js/vendor/jquery-ui.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.ui.touch-punch.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/vendor/sal.js}"></script>
+<script th:src="@{/js/vendor/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/vendor/imagesloaded.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/counterup.js}"></script>
+<script th:src="@{/js/vendor/waypoints.min.js}"></script>
+
+<!-- Main JS -->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

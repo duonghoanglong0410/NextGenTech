@@ -1,0 +1,32 @@
+<h3>Bài viết gợi ý ngẫu nhiên</h3>
+<div th:if="${randomPosts != null and not randomPosts.isEmpty()}">
+    <ul>
+        <li th:each="post : ${randomPosts}">
+            <a th:href="@{'/post/' + ${post.slug}}">
+                <img th:src="@{'/posts_img/' + ${post.postImage}}" th:alt="${post.title}" width="50">
+                <span th:text="${post.title}"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div th:if="${randomPosts == null or randomPosts.isEmpty()}">
+    <p>Không có bài viết nào để hiển thị.</p>
+</div>
+
+
+<h3>Bài viết gợi ý cho bạn</h3>
+<div th:if="${recommendedPosts != null and not recommendedPosts.isEmpty()}">
+    <ul>
+        <li th:each="post : ${recommendedPosts}">
+            <a th:href="@{'/post/' + ${post.slug}}">
+                <img th:src="@{'/posts_img/' + ${post.postImage}}" th:alt="${post.title}" width="50">
+                <span th:text="${post.title}"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div th:if="${recommendedPosts == null or recommendedPosts.isEmpty()}">
+    <p>Chưa có bài viết nào được đề xuất. Hãy tìm kiếm để khám phá thêm!</p>
+</div>
+
+

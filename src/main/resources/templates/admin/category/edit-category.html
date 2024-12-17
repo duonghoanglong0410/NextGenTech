@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+ <button class="card-close sidebar-close"><i class="fas fa-times"></i></button>
+  <div class="header-search-wrap">
+    <div class="card-header">
+      <h4>Sửa danh mục</h4>
+      <form th:action="@{/categories-post/edit/{id}(id=${category.id})}" method="POST" th:object="${category}">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Tên danh mục</label>
+              <input type="text" name="name" id="name" class="form-control" th:field="*{name}">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Mô tả</label>
+              <input type="text" name="description" id="description" class="form-control" th:field="*{description}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-cols-lg-6">
+            <button type="submit" class="form-control">Cập nhật danh mục</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
