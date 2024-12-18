@@ -1,13 +1,14 @@
-# Stage 1: Build
-FROM maven:3-eclipse-temurin-17-focal AS build
-WORKDIR /app
-COPY ../../../IT_HCMUNRE/SEO_Java%20Web/DoAn/v2/TheGioiCongNghe/TheGioiCongNghe/pom.xml .
-COPY ../../../IT_HCMUNRE/SEO_Java%20Web/DoAn/v2/TheGioiCongNghe/TheGioiCongNghe/src ./src
-RUN mvn clean package -DskipTests
+# Sử dụng base image cho Java 17
+FROM eclipse-temurin:17-jdk-alpine
 
-# Stage 2: Runtime
-FROM eclipse-temurin:17-jdk
+# Đặt thư mục làm việc trong container
 WORKDIR /app
-COPY --from=build /app/target/*.jar demo.jar
+
+# Copy file JAR vào container
+COPY target/NextGenTech-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose cổng ứng dụng
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+
+# Chạy ứng dụng Spring Boot
+CMD ["java", "-jar", "app.jar"]
