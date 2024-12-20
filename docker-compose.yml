@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: NextGenTech
+      SPRING_DATASOURCE_URL: jdbc:mysql://nextgentech-nextgentech.j.aivencloud.com:17244/defaultdb?ssl-mode=REQUIRED
+      SPRING_DATASOURCE_USERNAME: avnadmin
+      SPRING_DATASOURCE_SSL_TRUST_STORE: /app/resources/ca.pem
+      SPRING_DATASOURCE_PASSWORD: AVNS_C9hEEULX3LfJKIw94hu
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID: 269149319883-32evtsj65bt6cf4kpnebnsj4cbdorg7d.apps.googleusercontent.com
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET: 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
+    volumes:
+      - ./uploads/ca.pem:/uploads/ca.pem
+

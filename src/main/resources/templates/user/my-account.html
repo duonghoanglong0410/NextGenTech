@@ -14,250 +14,11 @@
   <link rel="stylesheet" th:href="@{/css/vendor/base.css}">
   <link rel="stylesheet" th:href="@{/css/style.min.css}">
 </head>
-<style>
-  /* Loader Wrapper - Nền trắng toàn màn hình */
-  .loader-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff; /* Nền trắng */
-    display: flex;
-    justify-content: center; /* Căn giữa ngang */
-    align-items: center; /* Căn giữa dọc */
-    z-index: 9999; /* Đảm bảo loader ở trên cùng */
-  }
-
-  /* Loader Styles */
-  .loader {
-    width: 50px;
-    aspect-ratio: 1;
-    display: grid;
-  }
-
-  .loader::before,
-  .loader::after {
-    content: "";
-    grid-area: 1/1;
-    --c: no-repeat radial-gradient(farthest-side, #25b09b 92%, #0000);
-    background:
-            var(--c) 50% 0,
-            var(--c) 50% 100%,
-            var(--c) 100% 50%,
-            var(--c) 0 50%;
-    background-size: 12px 12px;
-    animation: l12 1s infinite;
-  }
-
-  .loader::before {
-    margin: 4px;
-    filter: hue-rotate(45deg);
-    background-size: 8px 8px;
-    animation-timing-function: linear;
-  }
-
-  @keyframes l12 {
-    100% {
-      transform: rotate(0.5turn);
-    }
-  }
-
-
-  /* Custom Button Styles */
-  .axil-btn {
-    display: inline-block;
-    font-family: Arial, sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 5px 10px; /* Khoảng cách trong nút */
-    color: #fff; /* Màu chữ trắng */
-    background: linear-gradient(135deg, #4e73df, #224abe); /* Gradient màu xanh */
-    border: none;
-    border-radius: 5px; /* Bo tròn góc */
-    text-decoration: none; /* Xóa gạch chân */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-    transition: all 0.3s ease; /* Hiệu ứng hover mượt mà */
-  }
-
-  .axil-btn:hover {
-    background: linear-gradient(135deg, #224abe, #1d3c78); /* Thay đổi màu khi hover */
-    transform: translateY(-3px); /* Đẩy nút lên nhẹ */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng đậm hơn */
-  }
-
-  .view-btn {
-    background: #ff6b6b; /* Màu đỏ đẹp mắt */
-    color: #fff;
-    transition: background 0.3s ease, transform 0.3s ease;
-  }
-
-  .view-btn:hover {
-    background: #d43f3f; /* Màu đỏ đậm hơn khi hover */
-    transform: scale(1.05); /* Phóng to nhẹ */
-  }
-
-
-  /* Upload Demo */
-  .uploader {
-    display: block;
-    clear: both;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 600px;
-  }
-
-  .uploader label {
-    float: left;
-    clear: both;
-    width: 100%;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    background: #fff;
-    border-radius: 7px;
-    border: 3px solid #eee;
-    transition: all .2s ease;
-    user-select: none;
-  }
-
-  .uploader label:hover {
-    border-color: #454cad;
-  }
-
-  .uploader label.hover {
-    border: 3px solid #454cad;
-    box-shadow: inset 0 0 0 6px #eee;
-  }
-
-  .uploader label.hover #start i.fa {
-    transform: scale(0.8);
-    opacity: 0.3;
-  }
-
-  .uploader #start {
-    float: left;
-    clear: both;
-    width: 100%;
-  }
-
-  .uploader #start.hidden {
-    display: none;
-  }
-
-  .uploader #start i.fa {
-    font-size: 50px;
-    margin-bottom: 1rem;
-    transition: all .2s ease-in-out;
-  }
-
-  .uploader #response {
-    float: left;
-    clear: both;
-    width: 100%;
-  }
-
-  .uploader #response.hidden {
-    display: none;
-  }
-
-  .uploader #response #messages {
-    margin-bottom: .5rem;
-  }
-
-  .uploader #file-image {
-    display: inline;
-    margin: 0 auto .5rem auto;
-    width: auto;
-    height: auto;
-    max-width: 180px;
-  }
-
-  .uploader #file-image.hidden {
-    display: none;
-  }
-
-  .uploader #notimage {
-    display: block;
-    float: left;
-    clear: both;
-    width: 100%;
-  }
-
-  .uploader #notimage.hidden {
-    display: none;
-  }
-
-  /* Progress Bar */
-  .uploader progress,
-  .uploader .progress {
-    display: inline;
-    clear: both;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 180px;
-    height: 8px;
-    border: 0;
-    border-radius: 4px;
-    background-color: #eee;
-    overflow: hidden;
-  }
-
-  .uploader .progress[value]::-webkit-progress-bar {
-    border-radius: 4px;
-    background-color: #eee;
-  }
-
-  .uploader .progress[value]::-webkit-progress-value {
-    background: linear-gradient(to right, #3b408f 0%, #454cad 50%);
-    border-radius: 4px;
-  }
-
-  .uploader .progress[value]::-moz-progress-bar {
-    background: linear-gradient(to right, #3b408f 0%, #454cad 50%);
-    border-radius: 4px;
-  }
-
-  .uploader input[type="file"] {
-    display: none;
-  }
-
-  .uploader div {
-    margin: 0 0 .5rem 0;
-    color: #5f6982;
-  }
-
-  .uploader .btn {
-    display: inline-block;
-    margin: .5rem .5rem 1rem .5rem;
-    clear: both;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 14px;
-    text-decoration: none;
-    text-transform: initial;
-    border: none;
-    border-radius: .2rem;
-    outline: none;
-    padding: 0 1rem;
-    height: 36px;
-    line-height: 36px;
-    color: #fff;
-    transition: all 0.2s ease-in-out;
-    box-sizing: border-box;
-    background: #454cad;
-    border-color: #454cad;
-    cursor: pointer;
-  }
-
-</style>
 <body>
 <!-- Loader -->
 <!-- Loader -->
-<div class="loader-wrapper" id="loader-wrapper">
-  <div class="loader"></div>
-</div>
-<div id="contents" style="display: none">
+
+<div id="contents">
 <!-- Thêm Toast Notification -->
 <div aria-live="polite" aria-atomic="true" class="position-relative">
   <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -284,8 +45,88 @@
 </div>
 <a href="#top" class="back-to-top" id="backto-top"><i class="fal fa-arrow-up"></i></a>
 
-<div th:replace="/user/fragments/header :: header"></div>
-
+  <!-- Start Header -->
+  <header class="header axil-header header-style-5" th:fragment="header">
+    <!-- Start Mainmenu Area  -->
+    <div id="axil-sticky-placeholder"></div>
+    <div class="axil-mainmenu">
+      <div class="container">
+        <div class="header-navbar">
+          <div class="header-brand">
+            <a href="/" class="logo logo-dark">
+              <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+            </a>
+            <a href="/" class="logo logo-light">
+              <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+            </a>
+          </div>
+          <div class="header-main-nav">
+            <!-- Start Mainmanu Nav -->
+            <nav class="mainmenu-nav">
+              <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
+              <div class="mobile-nav-brand">
+                <a href="#" class="logo">
+                  <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                </a>
+              </div>
+              <ul class="mainmenu">
+                <li class="menu-item-has-children">
+                  <a href="/">Home</a>
+                </li>
+                <li class="menu-item-has-children">
+                  <a href="/">Blog</a>
+                </li>
+              </ul>
+            </nav>
+            <!-- End Mainmanu Nav -->
+          </div>
+          <div class="header-action">
+            <ul class="action-list">
+              <!--axil-search -->
+              <li class="d-xl-block d-none">
+                <form th:action="@{/search}" method="get">
+                  <input type="text" class="placeholder product-search-input" name="query" id="search2" value="" maxlength="128" placeholder="Bạn muốn tìm kiếm tin tức gì?" autocomplete="off">
+                  <button type="submit" class="icon wooc-btn-search">
+                    <i class="flaticon-magnifying-glass"></i>
+                  </button>
+                </form>
+              </li>
+              <li class="axil-search d-xl-none d-block">
+                <a class="header-search-icon" title="Search">
+                  <i class="flaticon-magnifying-glass"></i>
+                </a>
+              </li>
+              <li class="my-account">
+                <a href="javascript:void(0)">
+                  <i class="flaticon-person"></i>
+                </a>
+                <div class="my-account-dropdown">
+                  <span class="title">QUICKLINKS</span>
+                  <ul>
+                    <!-- Kiểm tra nếu đã đăng nhập -->
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                      <a th:href="@{/my-account}">My Account</a>
+                    </li>
+                    <!-- Hiển thị đăng nhập nếu chưa đăng nhập -->
+                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                      <a th:href="@{/login}" class="axil-btn btn-bg-primary">Login</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="axil-mobile-toggle">
+                <button class="menu-btn mobile-nav-toggler">
+                  <i class="flaticon-menu-2"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Mainmenu Area -->
+  </header>
+  <!-- End Header -->
 <main class="main-wrapper">
   <!-- Start Breadcrumb Area  -->
   <div class="axil-breadcrumb-area">
@@ -390,8 +231,91 @@
 
 </main>
 
-<div th:replace="/user/fragments/footer :: footer"></div>
-
+  <!-- Start Footer Area  -->
+  <footer class="axil-footer-area footer-style-2" th:fragment="footer">
+    <!-- Start Footer Top Area  -->
+    <div class="footer-top separator-top">
+      <div class="container">
+        <div class="row">
+          <!-- Start Single Widget  -->
+          <div class="col-lg-3 col-sm-6">
+            <div class="axil-footer-widget">
+              <h5 class="widget-title">Support</h5>
+              <!-- <div class="logo mb--30">
+              <a href="index.html">
+                  <img class="light-logo" src="assets/images/logo/logo.png" alt="Logo Images">
+              </a>
+          </div> -->
+              <div class="inner">
+                <p>NTTU
+                </p>
+                <ul class="support-list-item">
+                  <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i> example@domain.com</a></li>
+                  <li><a href="tel:(+84)123-456-7890"><i class="fal fa-phone-alt"></i> (+84) 123-456-7890</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Widget  -->
+          <!-- Start Single Widget  -->
+          <div class="col-lg-3 col-sm-6">
+            <div class="axil-footer-widget">
+              <h5 class="widget-title">Account</h5>
+              <div class="inner">
+                <ul>
+                  <li><a href="/my-account">My Account</a></li>
+                  <li><a href="/login">Login / Register</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Widget  -->
+          <!-- Start Single Widget  -->
+          <div class="col-lg-3 col-sm-6">
+            <div class="axil-footer-widget">
+              <h5 class="widget-title">Quick Link</h5>
+              <div class="inner">
+                <ul>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms Of Use</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Widget  -->
+        </div>
+      </div>
+    </div>
+    <!-- End Footer Top Area  -->
+    <!-- Start Copyright Area  -->
+    <div class="copyright-area copyright-default separator-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-xl-4">
+            <div class="social-share">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-discord"></i></a>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-12">
+            <div class="copyright-left d-flex flex-wrap justify-content-center">
+              <ul class="quick-link">
+                <li>© 2024. All rights reserved by <a target="_blank" href="#">Dương Nhật Hoàng Long</a>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Copyright Area  -->
+  </footer>
+  <!-- End Footer Area  -->
 
 
 <!-- Modal Add Post -->
