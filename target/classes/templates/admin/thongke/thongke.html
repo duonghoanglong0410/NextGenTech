@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thống kê bài viết</title>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Tùy chỉnh CSS cho biểu đồ */
+        .chart-container {
+            width: 80%;
+            margin: auto;
+            margin-bottom: 50px;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+
+    <!-- Biểu đồ Doughnut cho danh mục -->
+    <h3>Thống kê Danh Mục Được Quan Tâm Nhất</h3>
+    <div class="chart-container">
+        <canvas id="bieuDoDanhMuc"></canvas>
+    </div>
+
+    <!-- Biểu đồ lượt xem -->
+    <h3>Top 10 Bài Viết Có Lượt Xem Cao Nhất</h3>
+    <div class="chart-container">
+        <canvas id="bieuDoLuotXem"></canvas>
+    </div>
+
+    <!-- Biểu đồ tương tác: Like và Comment -->
+    <h3>Thống kê Lượt Like và Comment</h3>
+    <div class="chart-container">
+        <canvas id="bieuDoTuongTac"></canvas>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /* Lấy dữ liệu từ model Thymeleaf */
+
+    // Dữ liệu cho biểu đồ Doughnut (Lượt xem theo danh mục)
+    var danhMucLabels = /*[[${luotXemTheoDanhMuc.keySet()}]]*/ [];
+    var luotXemDanhMuc = /*[[${luotXemTheoDanhMuc.values()}]]*/ [];
+
+    // Dữ liệu cho biểu đồ Top 10 lượt xem
+    var tieuDeBaiViet = /*[[${tieuDeBaiViet}]]*/ [];
+    var luotXem = /*[[${luotXem}]]*/ [];
+
+    // Dữ liệu cho biểu đồ tương tác
+    var soLuotLike = /*[[${soLuotLike}]]*/ [];
+    var soLuotComment = /*[[${soLuotComment}]]*/ [];
+
+    // Biểu đồ Doughnut - Danh mục được quan tâm
+    var ctxDanhMuc = document.getElementById('bieuDoDanhMuc').getContext('2d');
+    new Chart(ctxDanhMuc, {
+        type: 'doughnut',
+        data: {
+            labels: danhMucLabels,
+            datasets: [{
+                label: 'Lượt Xem',
+                data: luotXemDanhMuc,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: {
+                    display: true,
+                    text: 'Phân Tích Danh Mục Được Quan Tâm Nhất'
+                }
+            }
+        }
+    });
+
+    // Biểu đồ Top 10 lượt xem bài viết
+    var ctxLuotXem = document.getElementById('bieuDoLuotXem').getContext('2d');
+    new Chart(ctxLuotXem, {
+        type: 'bar',
+        data: {
+            labels: tieuDeBaiViet,
+            datasets: [{
+                label: 'Lượt Xem',
+                data: luotXem,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { title: { display: true, text: 'Bài viết' } },
+                y: { beginAtZero: true, title: { display: true, text: 'Lượt xem' } }
+            }
+        }
+    });
+
+    // Biểu đồ Like và Comment
+    var ctxTuongTac = document.getElementById('bieuDoTuongTac').getContext('2d');
+    new Chart(ctxTuongTac, {
+        type: 'bar',
+        data: {
+            labels: tieuDeBaiViet,
+            datasets: [
+                {
+                    label: 'Lượt Like',
+                    data: soLuotLike,
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Lượt Comment',
+                    data: soLuotComment,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { title: { display: true, text: 'Bài viết' } },
+                y: { beginAtZero: true, title: { display: true, text: 'Số lượt' } }
+            }
+        }
+    });
+</script>
+</body>
+</html>

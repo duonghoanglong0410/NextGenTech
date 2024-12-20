@@ -1,0 +1,82 @@
+<!-- Start Header -->
+<header class="header axil-header header-style-5" th:fragment="header">
+    <!-- Start Mainmenu Area  -->
+    <div id="axil-sticky-placeholder"></div>
+    <div class="axil-mainmenu">
+        <div class="container">
+            <div class="header-navbar">
+                <div class="header-brand">
+                    <a href="/" class="logo logo-dark">
+                        <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                    </a>
+                    <a href="/" class="logo logo-light">
+                        <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                    </a>
+                </div>
+                <div class="header-main-nav">
+                    <!-- Start Mainmanu Nav -->
+                    <nav class="mainmenu-nav">
+                        <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
+                        <div class="mobile-nav-brand">
+                            <a href="#" class="logo">
+                                <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                            </a>
+                        </div>
+                        <ul class="mainmenu">
+                            <li class="menu-item-has-children">
+                                <a href="/">Home</a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="/">Blog</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End Mainmanu Nav -->
+                </div>
+                <div class="header-action">
+                    <ul class="action-list">
+                        <!--axil-search -->
+                        <li class="d-xl-block d-none">
+                            <form th:action="@{/search}" method="get">
+                                <input type="text" class="placeholder product-search-input" name="query" id="search2" value="" maxlength="128" placeholder="Bạn muốn tìm kiếm tin tức gì?" autocomplete="off">
+                                <button type="submit" class="icon wooc-btn-search">
+                                    <i class="flaticon-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="axil-search d-xl-none d-block">
+                            <a class="header-search-icon" title="Search">
+                                <i class="flaticon-magnifying-glass"></i>
+                            </a>
+                        </li>
+                        <li class="my-account">
+                            <a href="javascript:void(0)">
+                                <i class="flaticon-person"></i>
+                            </a>
+                            <div class="my-account-dropdown">
+                                <span class="title">QUICKLINKS</span>
+                                <ul>
+                                    <!-- Kiểm tra nếu đã đăng nhập -->
+                                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/my-account}">My Account</a>
+                                    </li>
+                                    <!-- Hiển thị đăng nhập nếu chưa đăng nhập -->
+                                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/login}" class="axil-btn btn-bg-primary">Login</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="axil-mobile-toggle">
+                            <button class="menu-btn mobile-nav-toggler">
+                                <i class="flaticon-menu-2"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Mainmenu Area -->
+</header>
+<!-- End Header -->

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách bài viết</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container my-4">
+  <!-- Header -->
+  <div class="page-header mb-4">
+    <h3 class="fw-bold mb-3">Danh mục bài viết</h3>
+    <ul class="breadcrumbs mb-3 list-unstyled d-flex">
+      <li class="nav-home me-2">
+        <a href="#"><i class="icon-home"></i></a>
+      </li>
+      <li class="separator me-2">
+        <i class="icon-arrow-right"></i>
+      </li>
+      <li class="nav-item">
+        <a href="#">Xem bài viết</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title text-center">Chi tiết bài viết</h4>
+    </div>
+    <div class="card-body" th:object="${post}">
+      <div class="row">
+        <!-- Cột trái -->
+        <div class="col-md-6">
+          <div class="form-group mb-4">
+            <label for="title" class="form-label"><b>Tiêu đề</b></label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" readonly>
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="postImage" class="form-label"><b>Hình ảnh</b></label>
+            <div>
+              <img th:src="@{/posts_img/{postImage}(postImage=${post.postImage})}"
+                   alt="Image"
+                   class="img-thumbnail"
+                   style="max-width: 100%; height: auto;">
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="category" class="form-label"><b>Danh mục</b></label>
+            <input type="text" class="form-control" id="category" th:field="*{category.name}" readonly>
+          </div>
+        </div>
+
+        <!-- Cột phải -->
+        <div class="col-md-6">
+          <div class="form-group mb-4">
+            <label for="content" class="form-label"><b>Nội dung</b></label>
+            <textarea class="form-control" id="content" rows="7" th:text="*{content}" readonly></textarea>
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="author" class="form-label"><b>Người đăng</b></label>
+            <input type="text" class="form-control" id="author" th:field="*{author.name}" readonly>
+          </div>
+        </div>
+      </div>
+      <!-- Nút trở về -->
+      <div class="text-center mt-4">
+        <a th:href="@{/admin/post}" class="btn btn-primary">
+          <i class="fa fa-arrow-left me-2"></i>Trở về danh sách
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

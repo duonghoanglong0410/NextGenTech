@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Next Gen Tech</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/vendor/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/flaticon/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/slick.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/slick-theme.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/sal.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/base.css}">
+    <link rel="stylesheet" th:href="@{/css/style.min.css}">
+</head>
+<body>
+<div id="contents">
+    <!-- Start Header -->
+    <header class="header axil-header header-style-5" th:fragment="header">
+        <!-- Start Mainmenu Area  -->
+        <div id="axil-sticky-placeholder"></div>
+        <div class="axil-mainmenu">
+            <div class="container">
+                <div class="header-navbar">
+                    <div class="header-brand">
+                        <a href="/" class="logo logo-dark">
+                            <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                        </a>
+                        <a href="/" class="logo logo-light">
+                            <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                        </a>
+                    </div>
+                    <div class="header-main-nav">
+                        <!-- Start Mainmanu Nav -->
+                        <nav class="mainmenu-nav">
+                            <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
+                            <div class="mobile-nav-brand">
+                                <a href="#" class="logo">
+                                    <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                                </a>
+                            </div>
+                            <ul class="mainmenu">
+                                <li class="menu-item-has-children">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="/">Blog</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- End Mainmanu Nav -->
+                    </div>
+                    <div class="header-action">
+                        <ul class="action-list">
+                            <!--axil-search -->
+                            <li class="d-xl-block d-none">
+                                <form th:action="@{/search}" method="get">
+                                    <input type="text" class="placeholder product-search-input" name="query" id="search2" value="" maxlength="128" placeholder="Bạn muốn tìm kiếm tin tức gì?" autocomplete="off">
+                                    <button type="submit" class="icon wooc-btn-search">
+                                        <i class="flaticon-magnifying-glass"></i>
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="axil-search d-xl-none d-block">
+                                <a class="header-search-icon" title="Search">
+                                    <i class="flaticon-magnifying-glass"></i>
+                                </a>
+                            </li>
+                            <li class="my-account">
+                                <a href="javascript:void(0)">
+                                    <i class="flaticon-person"></i>
+                                </a>
+                                <div class="my-account-dropdown">
+                                    <span class="title">QUICKLINKS</span>
+                                    <ul>
+                                        <!-- Kiểm tra nếu đã đăng nhập -->
+                                        <li th:if="${#authorization.expression('isAuthenticated()')}">
+                                            <a th:href="@{/my-account}">My Account</a>
+                                        </li>
+                                        <!-- Hiển thị đăng nhập nếu chưa đăng nhập -->
+                                        <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                                            <a th:href="@{/login}" class="axil-btn btn-bg-primary">Login</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="axil-mobile-toggle">
+                                <button class="menu-btn mobile-nav-toggler">
+                                    <i class="flaticon-menu-2"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Mainmenu Area -->
+    </header>
+    <!-- End Header -->
+<!-- Start Breadcrumb Area -->
+<div class="axil-breadcrumb-area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="inner">
+                    <ul class="axil-breadcrumb">
+                        <li class="axil-breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="separator"></li>
+                        <li class="axil-breadcrumb-item active">Post Details</li>
+                    </ul>
+                    <h1 class="title">Posts</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumb Area -->
+
+<!-- Start Blog Area -->
+<div class="axil-blog-area axil-section-gap">
+    <div class="axil-single-post post-formate post-standard">
+        <div class="container">
+            <div class="content-block">
+                <div class="inner">
+                    <div class="post-thumbnail">
+                        <img th:src="@{'/posts_img/' + ${post.postImage}}" alt="Post Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-single-wrapper position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1">
+                    <div class="d-flex flex-wrap align-content-start h-100">
+                        <div class="position-sticky sticky-top">
+                            <div class="post-details__social-share">
+                                <span class="share-on-text">Share on:</span>
+                                <div class="social-share">
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fab fa-discord"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 axil-post-wrapper">
+                    <!-- Post Details -->
+                    <div class="post-heading">
+                        <h2 class="title" th:text="${post.title}"></h2>
+                        <div class="axil-post-meta">
+                            <div class="post-meta-content">
+                                <h6 class="author-title">
+                                    <a href="#">Admin</a>
+                                </h6>
+                                <ul class="post-meta-list">
+                                    <li th:text="${post.createdAt}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p th:utext="${post.content}"></p>
+
+                    <!-- Comment Section -->
+                    <div class="axil-comment-area">
+                        <h4 class="title" th:text="${#lists.size(comments)} + ' comments'">0 comments</h4>
+                        <ul class="comment-list">
+                            <!-- Hiển thị danh sách comment cha -->
+                            <li class="comment" th:each="comment : ${comments}">
+                                <div class="comment-body">
+                                    <div class="single-comment">
+                                        <div class="comment-img">
+                                            <img th:src="${comment.user != null && comment.user.picture != null ? comment.user.picture : '/images/userpicture.png'}" th:alt="${comment.user.name}" crossorigin="anonymous">
+                                        </div>
+                                        <div class="comment-inner">
+                                            <h6 class="commenter">
+                                                <span th:text="${comment.user?.name ?: 'Anonymous'}"></span>
+                                            </h6>
+                                            <div class="comment-meta">
+                                                <div class="time-spent" th:text="${comment.createdAt}"></div>
+                                                <div class="reply-edit">
+                                                    <div class="reply">
+                                                        <a class="comment-reply-link hover-flip-item-wrapper" href="#">
+                                                                    <span class="hover-flip-item">
+                                                        <span href="#" th:onclick="'showReplyForm(' + ${comment.id} + '); return false;'">Reply</span>
+                                                                    </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-text">
+                                                <p th:text="${comment.content}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Hiển thị danh sách replies -->
+                                <ul class="children" th:if="${comment.replies != null}">
+                                    <li class="comment" th:each="reply : ${comment.replies}">
+                                        <div class="comment-body">
+                                            <div class="single-comment">
+                                                <div class="comment-img">
+                                                    <img th:src="${reply.user?.picture ?: '/assets/images/default-user.png'}" alt="Author Image">
+                                                </div>
+                                                <div class="comment-inner">
+                                                    <h6 class="commenter">
+                                                        <span th:text="${reply.user?.name ?: 'Anonymous'}"></span>
+                                                    </h6>
+                                                    <div class="comment-meta">
+                                                        <div class="time-spent" th:text="${reply.createdAt}"></div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <p th:text="${reply.content}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <!-- Comment Form -->
+                    <div class="comment-respond">
+                        <h4 class="title">Leave a Reply</h4>
+                        <form th:action="@{/posts/comment}" method="post">
+                            <input type="hidden" name="postId" th:value="${post.id}">
+                            <input type="hidden" name="parentCommentId" id="parentCommentId">
+                            <div class="form-group">
+                                <label>Your Comment</label>
+                                <textarea name="content" placeholder="Write your comment here..." required></textarea>
+                            </div>
+                            <button type="submit" class="axil-btn btn-bg-primary w-auto">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <aside class="axil-sidebar-area">
+
+                        <div class="axil-single-widget mt--40">
+                            <h6 class="widget-title">Bài viết liên quan</h6>
+                            <div class="content-blog post-list-view mb--20" th:each="relatedPost  : ${relatedPosts}">
+                                <div class="thumbnail">
+                                    <a th:href="@{'/post/' + ${relatedPost.slug}}">
+                                        <img th:src="@{'/posts_img/' + ${relatedPost.postImage}}" th:alt="${relatedPost.title}">
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <h6 class="title">
+                                        <a th:href="@{'/post/' + ${relatedPost.slug}}" th:text="${relatedPost.title}"></a>
+                                    </h6>
+                                    <div class="axil-post-meta">
+                                        <ul class="post-meta-list">
+                                            <li th:text="${relatedPost.createdAt}"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Latest Posts -->
+                        <div class="axil-single-widget mt--40">
+                            <h6 class="widget-title">Bài viết phổ biến</h6>
+                            <div class="content-blog post-list-view mb--20" th:each="popularPost : ${popularPosts}">
+                                <div class="thumbnail">
+                                    <a th:href="@{'/post/' + ${popularPost.slug}}">
+                                        <img th:src="@{'/posts_img/' + ${popularPost.postImage}}" th:alt="${popularPost.title}">
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <h6 class="title">
+                                        <a th:href="@{'/post/' + ${popularPost.slug}}" th:text="${popularPost.title}"></a>
+                                    </h6>
+                                    <div class="axil-post-meta">
+                                        <ul class="post-meta-list">
+                                            <li th:text="${popularPost.createdAt}"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="axil-single-widget mt--40">
+                            <h6 class="widget-title">Bài viết được đề xuất</h6>
+                            <div class="content-blog post-list-view mb--20" th:each="combinedPost  : ${combinedRecommendations}">
+                                <div class="thumbnail">
+                                    <a th:href="@{'/post/' + ${combinedPost.slug}}">
+                                        <img th:src="@{'/posts_img/' + ${combinedPost.postImage}}" th:alt="${combinedPost.title}">
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <h6 class="title">
+                                        <a th:href="@{'/post/' + ${combinedPost.slug}}" th:text="${combinedPost.title}"></a>
+                                    </h6>
+                                    <div class="axil-post-meta">
+                                        <ul class="post-meta-list">
+                                            <li th:text="${combinedPost.createdAt}"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Search -->
+                        <div class="axil-single-widget mt--40 widget_search">
+                            <h6 class="widget-title">Search</h6>
+                            <form class="blog-search">
+                                <button class="search-button"><i class="fal fa-search"></i></button>
+                                <input type="text" placeholder="Search">
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Start Footer Area  -->
+    <footer class="axil-footer-area footer-style-2" th:fragment="footer">
+        <!-- Start Footer Top Area  -->
+        <div class="footer-top separator-top">
+            <div class="container">
+                <div class="row">
+                    <!-- Start Single Widget  -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="axil-footer-widget">
+                            <h5 class="widget-title">Support</h5>
+                            <!-- <div class="logo mb--30">
+                            <a href="index.html">
+                                <img class="light-logo" src="assets/images/logo/logo.png" alt="Logo Images">
+                            </a>
+                        </div> -->
+                            <div class="inner">
+                                <p>NTTU
+                                </p>
+                                <ul class="support-list-item">
+                                    <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i> example@domain.com</a></li>
+                                    <li><a href="tel:(+84)123-456-7890"><i class="fal fa-phone-alt"></i> (+84) 123-456-7890</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Widget  -->
+                    <!-- Start Single Widget  -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="axil-footer-widget">
+                            <h5 class="widget-title">Account</h5>
+                            <div class="inner">
+                                <ul>
+                                    <li><a href="/my-account">My Account</a></li>
+                                    <li><a href="/login">Login / Register</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Widget  -->
+                    <!-- Start Single Widget  -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="axil-footer-widget">
+                            <h5 class="widget-title">Quick Link</h5>
+                            <div class="inner">
+                                <ul>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms Of Use</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Widget  -->
+                </div>
+            </div>
+        </div>
+        <!-- End Footer Top Area  -->
+        <!-- Start Copyright Area  -->
+        <div class="copyright-area copyright-default separator-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-4">
+                        <div class="social-share">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-discord"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-12">
+                        <div class="copyright-left d-flex flex-wrap justify-content-center">
+                            <ul class="quick-link">
+                                <li>© 2024. All rights reserved by <a target="_blank" href="#">Dương Nhật Hoàng Long</a>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Area  -->
+    </footer>
+    <!-- End Footer Area  -->
+</div>
+<!-- Scripts -->
+<script th:src="@{/js/vendor/jquery.js}"></script>
+<script>
+    function showReplyForm(commentId) {
+        // Gán giá trị ID của comment cha vào input ẩn
+        document.getElementById("parentCommentId").value = commentId;
+        // Cuộn xuống phần form
+        document.querySelector(".comment-respond").scrollIntoView({ behavior: "smooth" });
+    }
+
+</script>
+
+</body>
+</html>

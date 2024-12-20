@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Next Gen Tech</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/vendor/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/flaticon/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/slick.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/slick-theme.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/sal.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/base.css}">
+    <link rel="stylesheet" th:href="@{/css/style.min.css}">
+</head>
+<style>
+    .google-login-btn {
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        background-color: #4285F4; /* Màu xanh Google */
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .google-login-btn i {
+        margin-right: 8px;
+    }
+
+    .google-login-btn:hover {
+        background-color: #357AE8;
+        transform: translateY(-2px);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .google-login-btn:active {
+        background-color: #2A65D0;
+        transform: translateY(0);
+    }
+
+
+</style>
+<div class="axil-signin-area">
+
+    <!-- Start Header -->
+    <div class="signin-header">
+        <div class="row align-items-center">
+            <div class="col-sm-4">
+                <a href="#" class="site-logo"><img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End Header -->
+
+    <div class="row">
+        <div class="col-xl-4 col-lg-6">
+            <div class="axil-signin-banner bg_image bg_image--9">
+                <h3 class="title">Chào mừng đến với NextGen Tech</h3>
+            </div>
+        </div>
+        <div class="col-lg-6 offset-xl-2">
+            <div class="axil-signin-form-wrap">
+                <div class="axil-signin-form">
+                    <h3 class="title">Sign in to NextGen Tech.</h3>
+                    <a th:href="@{/oauth2/authorization/google}" class="google-login-btn btn-bg-primary submit-btn">
+                        <i class="fab fa-google"></i> Đăng nhập bằng Google
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelector('.submit-btn').addEventListener('click', function(event) {
+        console.log('Redirecting to Google login...');
+    });
+</script>
+<!-- Modernizer JS -->
+<script th:src="@{/js/vendor/modernizr.min.js}"></script>
+<!-- jQuery JS -->
+<script th:src="@{/js/vendor/jquery.js}"></script>
+<!-- Bootstrap JS -->
+<script th:src="@{/js/vendor/popper.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+<script th:src="@{/js/vendor/slick.min.js}"></script>
+<script th:src="@{/js/vendor/js.cookie.js}"></script>
+<!-- <script th:src="@{/js/vendor/jquery.style.switcher.js}"></script> -->
+<script th:src="@{/js/vendor/jquery-ui.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.ui.touch-punch.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/vendor/sal.js}"></script>
+<script th:src="@{/js/vendor/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/vendor/imagesloaded.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/counterup.js}"></script>
+<script th:src="@{/js/vendor/waypoints.min.js}"></script>
+
+<!-- Main JS -->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

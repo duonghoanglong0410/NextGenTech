@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Next Gen Tech</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/vendor/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/flaticon/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/slick.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/slick-theme.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/sal.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/vendor/base.css}">
+    <link rel="stylesheet" th:href="@{/css/style.min.css}">
+</head>
+<style>
+    /* Upload Demo */
+    .uploader {
+        display: block;
+        clear: both;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .uploader label {
+        float: left;
+        clear: both;
+        width: 100%;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        background: #fff;
+        border-radius: 7px;
+        border: 3px solid #eee;
+        transition: all .2s ease;
+        user-select: none;
+    }
+
+    .uploader label:hover {
+        border-color: #454cad;
+    }
+
+    .uploader label.hover {
+        border: 3px solid #454cad;
+        box-shadow: inset 0 0 0 6px #eee;
+    }
+
+    .uploader label.hover #start i.fa {
+        transform: scale(0.8);
+        opacity: 0.3;
+    }
+
+    .uploader #start {
+        float: left;
+        clear: both;
+        width: 100%;
+    }
+
+    .uploader #start.hidden {
+        display: none;
+    }
+
+    .uploader #start i.fa {
+        font-size: 50px;
+        margin-bottom: 1rem;
+        transition: all .2s ease-in-out;
+    }
+
+    .uploader #response {
+        float: left;
+        clear: both;
+        width: 100%;
+    }
+
+    .uploader #response.hidden {
+        display: none;
+    }
+
+    .uploader #response #messages {
+        margin-bottom: .5rem;
+    }
+
+    .uploader #file-image {
+        display: inline;
+        margin: 0 auto .5rem auto;
+        width: auto;
+        height: auto;
+        max-width: 180px;
+    }
+
+    .uploader #file-image.hidden {
+        display: none;
+    }
+
+    .uploader #notimage {
+        display: block;
+        float: left;
+        clear: both;
+        width: 100%;
+    }
+
+    .uploader #notimage.hidden {
+        display: none;
+    }
+
+    /* Progress Bar */
+    .uploader progress,
+    .uploader .progress {
+        display: inline;
+        clear: both;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 180px;
+        height: 8px;
+        border: 0;
+        border-radius: 4px;
+        background-color: #eee;
+        overflow: hidden;
+    }
+
+    .uploader .progress[value]::-webkit-progress-bar {
+        border-radius: 4px;
+        background-color: #eee;
+    }
+
+    .uploader .progress[value]::-webkit-progress-value {
+        background: linear-gradient(to right, #3b408f 0%, #454cad 50%);
+        border-radius: 4px;
+    }
+
+    .uploader .progress[value]::-moz-progress-bar {
+        background: linear-gradient(to right, #3b408f 0%, #454cad 50%);
+        border-radius: 4px;
+    }
+
+    .uploader input[type="file"] {
+        display: none;
+    }
+
+    .uploader div {
+        margin: 0 0 .5rem 0;
+        color: #5f6982;
+    }
+
+    .uploader .btn {
+        display: inline-block;
+        margin: .5rem .5rem 1rem .5rem;
+        clear: both;
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: initial;
+        border: none;
+        border-radius: .2rem;
+        outline: none;
+        padding: 0 1rem;
+        height: 36px;
+        line-height: 36px;
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+        box-sizing: border-box;
+        background: #454cad;
+        border-color: #454cad;
+        cursor: pointer;
+    }
+
+</style>
+
+<body>
+
+<!-- Back to Top -->
+<a href="#top" class="back-to-top" id="backto-top">
+    <i class="fal fa-arrow-up"></i>
+</a>
+
+<!-- Header -->
+<!-- Start Header -->
+<header class="header axil-header header-style-5" th:fragment="header">
+    <!-- Start Mainmenu Area  -->
+    <div id="axil-sticky-placeholder"></div>
+    <div class="axil-mainmenu">
+        <div class="container">
+            <div class="header-navbar">
+                <div class="header-brand">
+                    <a href="/" class="logo logo-dark">
+                        <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                    </a>
+                    <a href="/" class="logo logo-light">
+                        <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                    </a>
+                </div>
+                <div class="header-main-nav">
+                    <!-- Start Mainmanu Nav -->
+                    <nav class="mainmenu-nav">
+                        <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
+                        <div class="mobile-nav-brand">
+                            <a href="#" class="logo">
+                                <img th:src="@{images/NextGen.png}" alt="Site Logo" width="150px" height="40px">
+                            </a>
+                        </div>
+                        <ul class="mainmenu">
+                            <li class="menu-item-has-children">
+                                <a href="/">Home</a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="/">Blog</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End Mainmanu Nav -->
+                </div>
+                <div class="header-action">
+                    <ul class="action-list">
+                        <!--axil-search -->
+                        <li class="d-xl-block d-none">
+                            <form th:action="@{/search}" method="get">
+                                <input type="text" class="placeholder product-search-input" name="query" id="search2" value="" maxlength="128" placeholder="Bạn muốn tìm kiếm tin tức gì?" autocomplete="off">
+                                <button type="submit" class="icon wooc-btn-search">
+                                    <i class="flaticon-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="axil-search d-xl-none d-block">
+                            <a class="header-search-icon" title="Search">
+                                <i class="flaticon-magnifying-glass"></i>
+                            </a>
+                        </li>
+                        <li class="my-account">
+                            <a href="javascript:void(0)">
+                                <i class="flaticon-person"></i>
+                            </a>
+                            <div class="my-account-dropdown">
+                                <span class="title">QUICKLINKS</span>
+                                <ul>
+                                    <!-- Kiểm tra nếu đã đăng nhập -->
+                                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/my-account}">My Account</a>
+                                    </li>
+                                    <!-- Hiển thị đăng nhập nếu chưa đăng nhập -->
+                                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/login}" class="axil-btn btn-bg-primary">Login</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="axil-mobile-toggle">
+                            <button class="menu-btn mobile-nav-toggler">
+                                <i class="flaticon-menu-2"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Mainmenu Area -->
+</header>
+<!-- End Header -->
+<!-- Main Wrapper -->
+<!-- Main Wrapper -->
+<main class="main-wrapper py-5">
+    <!-- Breadcrumb Area -->
+    <div class="axil-breadcrumb-area mb-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="inner">
+                        <ul class="axil-breadcrumb">
+                            <li class="axil-breadcrumb-item">
+                                <a href="/">Home</a>
+                            </li>
+                            <li class="separator"></li>
+                            <li class="axil-breadcrumb-item active" aria-current="page">Post</li>
+                        </ul>
+                        <h1 class="title">Sửa bài viết</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumb Area -->
+
+    <!-- Edit Form -->
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form th:action="@{/post/edit/{id}(id=${post.id})}" method="POST" enctype="multipart/form-data" th:object="${post}">
+                    <!-- Tiêu đề -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Tiêu đề</label>
+                        <input type="text" id="title" name="title" class="form-control" th:field="*{title}" required>
+                    </div>
+
+                    <!-- Nội dung -->
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Nội dung</label>
+                        <textarea id="content" name="content" class="form-control" rows="6" th:field="*{content}" required></textarea>
+                    </div>
+
+                    <!-- Danh mục -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Danh mục</label>
+                        <select id="category" name="category.id" class="form-select" required style="font-size: 1.5rem">
+                            <option th:each="category : ${posts}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}"
+                                    th:selected="${post.category?.id == category.id}" style="font-size: 1.5rem">
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Hình ảnh hiện tại -->
+                    <div class="mb-3">
+                        <label class="form-label">Hình Ảnh Hiện Tại</label><br>
+                        <img th:src="@{/posts_img/{imageName}(imageName=${post.postImage})}"
+                             alt="Hình ảnh hiện tại"
+                             class="img-thumbnail" style="max-width: 800px;">
+                    </div>
+
+                    <!-- Upload hình ảnh mới -->
+                    <div class="mb-3">
+                        <!-- Upload hình ảnh mới -->
+                        <div id="file-upload-form" class="uploader">
+                            <input id="imageFile" type="file" name="imageFile" accept="image/*" />
+                            <label for="imageFile" id="file-drag">
+                                <img id="file-image" src="#" alt="Preview" class="hidden">
+                                <div id="start">
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                    <div>Chọn file hoặc kéo thả vào đây</div>
+                                    <div id="notimage" class="hidden">Please select an image</div>
+                                    <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                                </div>
+                                <div id="response" class="hidden">
+                                    <div id="messages"></div>
+                                    <progress class="progress" id="file-progress" value="0">
+                                        <span>0</span>%
+                                    </progress>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Nút Hành Động -->
+                    <div class="d-flex justify-content-end col-lg-12">
+                        <a th:href="@{/my-account}" class="btn btn-secondary me-2">Hủy</a>
+                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="https://cdn.tiny.cloud/1/ur61592cgo9fnonucnrh2qcf4by9u46tayl9y7hryf2rwgcp/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Dec 5, 2024:
+            'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+            // Early access to document converters
+            'importword', 'exportword', 'exportpdf'
+        ],
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save(); // Đồng bộ nội dung vào textarea
+            });
+        },
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+        exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },
+        exportword_converter_options: { 'document': { 'size': 'Letter' } },
+        importword_converter_options: { 'formatting': { 'styles': 'inline', 'resets': 'inline',	'defaults': 'inline', } },
+    });
+
+    // File Upload
+    //
+    function ekUpload(){
+        function Init() {
+
+            console.log("Upload Initialised");
+
+            var fileSelect    = document.getElementById('imageFile'),
+                fileDrag      = document.getElementById('file-drag'),
+                submitButton  = document.getElementById('submit-button');
+
+            fileSelect.addEventListener('change', fileSelectHandler, false);
+
+            // Is XHR2 available?
+            var xhr = new XMLHttpRequest();
+            if (xhr.upload) {
+                // File Drop
+                fileDrag.addEventListener('dragover', fileDragHover, false);
+                fileDrag.addEventListener('dragleave', fileDragHover, false);
+                fileDrag.addEventListener('drop', fileSelectHandler, false);
+            }
+        }
+
+        function fileDragHover(e) {
+            var fileDrag = document.getElementById('file-drag');
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+        }
+
+        function fileSelectHandler(e) {
+            // Fetch FileList object
+            var files = e.target.files || e.dataTransfer.files;
+
+            // Cancel event and hover styling
+            fileDragHover(e);
+
+            // Process all File objects
+            for (var i = 0, f; f = files[i]; i++) {
+                parseFile(f);
+                uploadFile(f);
+            }
+        }
+
+        // Output
+        function output(msg) {
+            // Response
+            var m = document.getElementById('messages');
+            m.innerHTML = msg;
+        }
+
+        function parseFile(file) {
+
+            console.log(file.name);
+            output(
+                '<strong>' + encodeURI(file.name) + '</strong>'
+            );
+
+            // var fileType = file.type;
+            // console.log(fileType);
+            var imageName = file.name;
+
+            var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+            if (isGood) {
+                document.getElementById('start').classList.add("hidden");
+                document.getElementById('response').classList.remove("hidden");
+                document.getElementById('notimage').classList.add("hidden");
+                // Thumbnail Preview
+                document.getElementById('file-image').classList.remove("hidden");
+                document.getElementById('file-image').src = URL.createObjectURL(file);
+            }
+            else {
+                document.getElementById('file-image').classList.add("hidden");
+                document.getElementById('notimage').classList.remove("hidden");
+                document.getElementById('start').classList.remove("hidden");
+                document.getElementById('response').classList.add("hidden");
+                document.getElementById("file-upload-form").reset();
+            }
+        }
+
+        function setProgressMaxValue(e) {
+            var pBar = document.getElementById('file-progress');
+
+            if (e.lengthComputable) {
+                pBar.max = e.total;
+            }
+        }
+
+        function updateFileProgress(e) {
+            var pBar = document.getElementById('file-progress');
+
+            if (e.lengthComputable) {
+                pBar.value = e.loaded;
+            }
+        }
+
+        function uploadFile(file) {
+
+            var xhr = new XMLHttpRequest(),
+                fileInput = document.getElementById('class-roster-file'),
+                pBar = document.getElementById('file-progress'),
+                fileSizeLimit = 1024; // In MB
+            if (xhr.upload) {
+                // Check if file is less than x MB
+                if (file.size <= fileSizeLimit * 1024 * 1024) {
+                    // Progress bar
+                    pBar.style.display = 'inline';
+                    xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
+                    xhr.upload.addEventListener('progress', updateFileProgress, false);
+
+                    // File received / failed
+                    xhr.onreadystatechange = function(e) {
+                        if (xhr.readyState == 4) {
+                            // Everything is good!
+
+                            // progress.className = (xhr.status == 200 ? "success" : "failure");
+                            // document.location.reload(true);
+                        }
+                    };
+
+                    // Start upload
+                    xhr.open('POST', document.getElementById('file-upload-form').action, true);
+                    xhr.setRequestHeader('X-File-Name', file.name);
+                    xhr.setRequestHeader('X-File-Size', file.size);
+                    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                    xhr.send(file);
+                } else {
+                    output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+                }
+            }
+        }
+
+        // Check for the various File API support.
+        if (window.File && window.FileList && window.FileReader) {
+            Init();
+        } else {
+            document.getElementById('file-drag').style.display = 'none';
+        }
+    }
+    ekUpload();
+</script>
+<!-- JS
+============================================ -->
+<!-- Modernizer JS -->
+<script th:src="@{/js/vendor/modernizr.min.js}"></script>
+<!-- jQuery JS -->
+<script th:src="@{/js/vendor/jquery.js}"></script>
+<!-- Bootstrap JS -->
+<script th:src="@{/js/vendor/popper.min.js}"></script>
+<script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+<script th:src="@{/js/vendor/slick.min.js}"></script>
+<script th:src="@{/js/vendor/js.cookie.js}"></script>
+<!-- <script th:src="@{/js/vendor/jquery.style.switcher.js}"></script> -->
+<script th:src="@{/js/vendor/jquery-ui.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.ui.touch-punch.min.js}"></script>
+<script th:src="@{/js/vendor/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/vendor/sal.js}"></script>
+<script th:src="@{/js/vendor/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/vendor/imagesloaded.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/vendor/counterup.js}"></script>
+<script th:src="@{/js/vendor/waypoints.min.js}"></script>
+
+<!-- Main JS -->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
